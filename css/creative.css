@@ -59,6 +59,10 @@ p {
 .text-light {
   color: rgba(255, 255, 255, 1);
 }
+.text-parahead{
+  font-size: 1.5em;
+  /*text-transform: uppercase;*/
+}
 section {
   padding: 100px 0;
 }
@@ -425,4 +429,8 @@ body {
 .img-avatar{
   height: 33vh;
   width: 44vh;
+}
+.img-edu-badge{
+  height: 20vh;
+  width: 20vh;
 }

@@ -30,6 +30,16 @@ a:hover,
 a:focus {
   color: #eb3812; }
 
+a.colored {
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+  color: #eb3812; }
+
+a.colored:hover,
+a.colored:focus {
+  color: #FFFFFF; }
+
 h1,
 h2,
 h3,

@@ -36,6 +36,17 @@ a:focus {
   color: $main-color-deep;
 }
 
+a.colored{
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+  color: $main-color-deep;
+}
+a.colored:hover,
+a.colored:focus {
+  color: #FFFFFF;
+}
+
 
 h1,
 h2,

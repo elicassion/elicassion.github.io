@@ -1,3 +1,72 @@
+.project-main-wrapper {
+  font-size: 20px;
+  font-weight: lighter;
+  line-height: 40px;
+  letter-spacing: 0.5px;
+  padding: 0 13%;
+}
 
+.project-main-wrapper p {
+  clear: both;
+}
+
+.project-main-wrapper img {
+  margin: 0 20px;
+}
+
+.project-content-wrapper {
+  margin: 0 60px 0 0;
+}
+
+.project-title-wrapper {
+  margin: 0 0 60px 0;
+  padding: 10px 0 0 0;
+  overflow: auto;
+  clear: both;
+}
+
+.project-title-wrapper hr {
+  margin: 5px 0;
+}
+
+.project-title-text {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.project-subtitle-text {
+  font-size: 22px;
+}
+
+.project-section-wrapper {
+  margin: 0 0 60px 0;
+  padding: 10px 0 0 0;
+  overflow: auto;
+}
+
+.project-section-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+img.project-image-full-col {
+  float: left;
+  width: 100%;
+}
+
+img.project-image-half-col {
+  float: left;
+  width: 50%;
+}
+
+img.project-image-fixed-height-300 {
+  float: left;
+  height: 300px;
+}
+
+img.project-image-fixed-height-160 {
+  float: left;
+  height: 160px;
+}
 
 /*# sourceMappingURL=project.css.map */

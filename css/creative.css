@@ -277,20 +277,6 @@ header .header-content .header-content-inner p {
   margin-top: 0;
 }
 
-.service-box {
-  max-width: 400px;
-  margin: 50px auto 0;
-}
-
-@media (min-width: 992px) {
-  .service-box {
-    margin: 20px auto 0;
-  }
-}
-.service-box p {
-  margin-bottom: 0;
-}
-
 .portfolio-box {
   position: relative;
   display: block;
@@ -529,6 +515,11 @@ body {
 
 .item-icon {
   margin: 1vw;
+}
+
+.skill-img-container {
+  margin: 0 !important;
+  min-width: 30px;
 }
 
 /*# sourceMappingURL=creative.css.map */

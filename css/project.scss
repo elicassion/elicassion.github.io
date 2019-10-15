@@ -9,7 +9,8 @@ $font-size-project-text: 20px;
 $line-height-project: 40px;
 $letter-spacing-project: 0.5px;
 
-.project-main-wrapper{
+
+.project-main-wrapper {
   font-size: $font-size-project-text;
   font-weight: lighter;
   line-height: $line-height-project;
@@ -18,6 +19,9 @@ $letter-spacing-project: 0.5px;
 }
 .project-main-wrapper p{
   clear: both;
+}
+.clearfloat {
+  clear: both
 }
 .project-main-wrapper img{
   margin: 0 20px;
@@ -35,26 +39,32 @@ $letter-spacing-project: 0.5px;
 .project-title-wrapper hr{
   margin: 5px 0;
 }
-.project-title-text{
+
+.project-main-wrapper h1{
   font-size: $font-size-project-title;
   font-weight: bold;
 }
 
-.project-subtitle-text {
+.project-main-wrapper h2{
   font-size: $font-size-project-subtitle;
+  font-weight: normal;
 }
 
-.project-section-wrapper{
-  margin: 0 0 $margin-project-section 0;
-  padding: $padding-project-section 0 0 0;
-  overflow: auto;
-}
-
-.project-section-title{
+.project-main-wrapper h3{
   font-size: $font-size-project-section-title;
   font-weight: bold;
 }
 
+
+.project-section-wrapper{
+  margin: 0 0 $margin-project-section 0;
+  padding: $padding-project-section 0 0 0;
+  //overflow: auto;
+}
+
+.project-image-wrapper{
+  text-align: center;
+}
 
 .project-paragraph {
 
@@ -72,23 +82,40 @@ $letter-spacing-project: 0.5px;
 
 }
 
+
+
 img.project-image-full-col{
+
   float: left;
   width: 100%;
+  height: auto;
+  min-width: 200px;
 }
 
 img.project-image-half-col{
-  float: left;
+  //float: left;
   width: 50%;
+  //height: 20em;
+  min-width: 200px;
+}
+
+img.project-image-half-col .float{
+  max-width: 46%;
+  //height: 40%;
+  float: left;
 }
 
 img.project-image-fixed-height-300{
-  float: left;
-  height: 300px;
+  //float: left;
+  height: 15em;
+  max-width: 46%;
+  min-width: 200px;
 }
 
 img.project-image-fixed-height-160{
   float: left;
-  height: 160px;
+  //height: 15em;
+  max-width: 40%;
+  min-width: 200px;
 }
 

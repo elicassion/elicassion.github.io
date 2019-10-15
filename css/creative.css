@@ -37,16 +37,7 @@ a.colored:focus {
   color: #eb3812;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-p {
+#me p {
   font-size: 1.2em;
   line-height: 1.5;
   margin-bottom: 20px;

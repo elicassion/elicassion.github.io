@@ -10,6 +10,10 @@
   clear: both;
 }
 
+.clearfloat {
+  clear: both;
+}
+
 .project-main-wrapper img {
   margin: 0 20px;
 }
@@ -29,44 +33,57 @@
   margin: 5px 0;
 }
 
-.project-title-text {
+.project-main-wrapper h1 {
   font-size: 40px;
   font-weight: bold;
 }
 
-.project-subtitle-text {
+.project-main-wrapper h2 {
   font-size: 22px;
+  font-weight: normal;
+}
+
+.project-main-wrapper h3 {
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .project-section-wrapper {
   margin: 0 0 60px 0;
   padding: 10px 0 0 0;
-  overflow: auto;
 }
 
-.project-section-title {
-  font-size: 28px;
-  font-weight: bold;
+.project-image-wrapper {
+  text-align: center;
 }
 
 img.project-image-full-col {
   float: left;
   width: 100%;
+  height: auto;
+  min-width: 200px;
 }
 
 img.project-image-half-col {
-  float: left;
   width: 50%;
+  min-width: 200px;
+}
+
+img.project-image-half-col .float {
+  max-width: 46%;
+  float: left;
 }
 
 img.project-image-fixed-height-300 {
-  float: left;
-  height: 300px;
+  height: 15em;
+  max-width: 46%;
+  min-width: 200px;
 }
 
 img.project-image-fixed-height-160 {
   float: left;
-  height: 160px;
+  max-width: 40%;
+  min-width: 200px;
 }
 
 /*# sourceMappingURL=project.css.map */

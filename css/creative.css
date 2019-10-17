@@ -273,7 +273,18 @@ header .header-content .header-content-inner p {
   position: relative;
   display: block;
   max-width: 650px;
+  max-height: 365.625px;
+  height: 18.9em;
   margin: 0 auto;
+}
+
+.portfolio-box .portfolio-teaser {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .portfolio-box .portfolio-box-caption {

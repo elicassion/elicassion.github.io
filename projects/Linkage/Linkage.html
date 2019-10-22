@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../css/shares.html" rel="import">
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/project.css" rel="stylesheet">
+
+    <title>J.H.Shang - Linkage.</title>
+
+</head>
+<body>
+<div class="project-main-wrapper">
+    <div class="project-title-wrapper">
+        <h1>
+            Linkage
+        </h1>
+        <hr class="title-subtitle-hr">
+        <h2>
+            Interactive Search and Visualization of Knowledge Graph
+        </h2>
+    </div>
+    <!--        <hr class="title-content-hr"/>-->
+    <div class="project-content-wrapper">
+        <div class="project-section-wrapper">
+            <h3>
+                Abstract
+            </h3>
+            <p>
+                Knowledge graph, as a newly proposed framework for organizing data information in recent years, elaborates its natural structure in representing relationship between entities and relationships to describe data. 
+                Knowledge bases constructed using knowledge graph can be queried using a query language called SPARQL. However, the use of knowledge graph and SPARQL is difficult.
+                In order to make querying procedure user-friendly, based on interactive data visualization, this paper designs and implements a system that can visualize the schema of a knowledge graph, perform input queries interactively by linking edges between nodes, and visualize the query results finally. 
+                The system is built to assist the input of most of the simple SPARQL queries.
+
+            </p>
+<!--            <img class="project-image-fixed-height-160" src="image/teaser.png" alt="">-->
+<!--            <img class="project-image-fixed-height-160" src="image/wgp_intro_new_with_finger.png" alt="">-->
+        </div>
+
+        <!-- <div class="project-section-wrapper">
+            <iframe width="1280" height="720" src="https://www.youtube.com/embed/xaf5_svjIDY" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div> -->
+        <div class="project-section-wrapper">
+            <h3>Interaction Method</h3>
+            <!-- <div class="project-image-wrapper">
+                <img class="project-image-full-col" src="image/sysarch.png" alt="System Implementation Figure">
+            </div> -->
+            <p>
+                As stored in RDF format, I first get the Scheme, which is the definition of the structure of stored knowledge graph.
+                It includes the Entities and Relations defined by the constructor.
+                Therefore, I visualized the scheme by a graph, where Entities are represented by nodes and relations represented by edges are left blank for users to generate queries.
+            </p>
+            <p>
+                When the graph is ready, users can add edges between nodes, to identify a relation intended to query.
+                These edges will be automatically converted to SPARQL codes describing relations.
+                Corresponding to nodes involved in these relations, users are required to enter the content they want to specify by text.
+                Involved nodes without entering texts are regarded the content the user wants to inquire.
+                After input, the graph and associated texts can be converted to SPARQL query language, which will further be sent to the knowledge graph database to get the result. 
+            </p>
+            <p>
+                For example, a simple knowledge graph has two Entities People and Object, descriping the belongings of each project.
+                They are visualized as two nodes.
+                The user wants to know which person possesses an apple.
+                In the Linkage system, the user can drag to establish an edge starting from People node to the Object node.
+                In the input fields below, the user enters "apple" corresponding to Object node.
+                Then, SPARQL language snippte are generated and sent to the database to perform a query back.
+                Using the similar nodes and edges method, tuples in the result can be visualized.
+            </p>
+        </div>
+
+        <div class="project-section-wrapper">
+            <h3>System Implementation</h3>
+            <p>
+                All of components, including interaction, visualization and converting to SPARQL language are written in JavaScript, using D3.js framework.
+            </p>
+        </div>
+
+        <div class="project-section-wrapper">
+            <h3>Disscussion and Future Work</h3>
+            <p>
+               
+            </p>
+            <p>
+                
+            </p>
+        </div>
+
+<!--        <div class="project-section-wrapper">-->
+<!--            <p class="project-section-title project-subtitle-1">-->
+<!--                Motivation-->
+<!--            </p>-->
+<!--            <div class="project-section-content-wrapper">-->
+<!--                A large group of people still use weak text passwords, which include but not limit to passwords containing only vocabularies-->
+<!--                (e.g. lovely, purple),-->
+<!--                numbers(e.g. 123456), and easy patterns (e.g. 1q2w3e4r).-->
+<!--                Creating a complicated password (e.g. 3class8 passwords) is both time- and mental-consuming and the outcome password is hard to remember.-->
+<!--                An observation from a not very common habit but insightful (also fun): some users set passwords like "asdfghjkl;'" (the middle line on physical QWERTY keyboard) to mimic-->
+<!--                the "sliding unlock" on physical keyboard on their PCs or laptops.-->
+<!--                Gesture typing is gradually adopted by users and it shows faster input speed in general cases. Moreover, people behave-->
+<!--                variously performing word-gestures.-->
+<!--                An unfortunate thing happened to myself: my bank App was broken which couldn't link my fingerprint reader,-->
+<!--                resulting in that I have to enter my long un-patterned password with symbols manually, EVERY TIME, on my SMALL virtual keyboard-->
+<!--                of my phone.-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+</div>
+
+</body>
+</html>

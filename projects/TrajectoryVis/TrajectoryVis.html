@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../css/shares.html" rel="import">
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/project.css" rel="stylesheet">
+
+    <title>J.H.Shang - ShareVision.</title>
+
+</head>
+<body>
+<div class="project-main-wrapper">
+    <div class="project-title-wrapper">
+        <h1>
+            ShareVision
+        </h1>
+        <hr class="title-subtitle-hr">
+        <h2>
+            A Marker-based Remote Collaboration Framework in Mixed Reality
+        </h2>
+    </div>
+    <!--        <hr class="title-content-hr"/>-->
+    <div class="project-content-wrapper">
+        <div class="project-section-wrapper">
+            <h3>
+                Abstract
+            </h3>
+            <p>
+                In the modern society, collaboration is becoming more and more important.
+                Collaborations among people with different views of problems are believed to be helpful in brainstorming and
+                problem solving.
+                However, it’s not easy to realize ideal collaborations because collaborators are usually from
+                different organizations and places, which means it’s difficult to assemble them to a place for discussion.
+                Although the development of communication tools like Skype enable people to have real-time remote discussion
+                through the internet, it’s still not enough for collaborations which require delicate instructions
+                like notating one side’s item from the other side.
+                Nowadays, the development of augmented reality techniques provide approaches to more thorough collaborations.
+                And Hololens is one of the most powerful devices accessing to augmented reality.
+                In this project, we implement a remote collaboration system which can share view streaming from
+                Hololens to a laptop and enable markers from the laptop to be shown in Hololens’ view.
+                This system will benefit remote collaborations requiring hand-in-hand instructions.
+            </p>
+<!--            <img class="project-image-fixed-height-160" src="image/teaser.png" alt="">-->
+<!--            <img class="project-image-fixed-height-160" src="image/wgp_intro_new_with_finger.png" alt="">-->
+        </div>
+
+        <div class="project-section-wrapper">
+            <iframe width="1280" height="720" src="https://www.youtube.com/embed/xaf5_svjIDY" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="project-section-wrapper">
+            <h3>System Implementation</h3>
+            <div class="project-image-wrapper">
+                <img class="project-image-full-col" src="image/sysarch.png" alt="System Implementation Figure">
+            </div>
+            <p>
+                We develop a server as a hub by WebSocket, forwarding video stream from the HoloLens and instructions from the helper.
+                A helper monitors the view from the helped and gives instructions on a website.
+                The helped receives the forwarded instruction packages which will be re-rendered by Unity.
+                Therefore, our system is extendable to provide many-to-many services if applicable.
+            </p>
+        </div>
+
+        <div class="project-section-wrapper">
+            <h3>Disscussion and Future Work</h3>
+            <p>
+                One essential existing problem is the mismaching of point-of-view between human eyes and device camera.
+                HoloLens is a see-through mixed reality device which humans can observed real world by their eyes.
+                However, the scence that the helper receives is not exactly what human eyes see.
+                Cameras are placed higher than the position of human eyes. 
+                This leads to the problem that when placing markers, rendered markers on HoloLens have offsets from human-eys's scene.
+                The problem can be addressed by algorithm compensating offsets.
+            </p>
+            <p>
+                Another future work is placing markers that attach to real-world objects, like sticking labels on them.
+                This will benefit human-effort to track the object and also elaborate the advantage of computing system to recognize and track various objects.
+            </p>
+        </div>
+
+<!--        <div class="project-section-wrapper">-->
+<!--            <p class="project-section-title project-subtitle-1">-->
+<!--                Motivation-->
+<!--            </p>-->
+<!--            <div class="project-section-content-wrapper">-->
+<!--                A large group of people still use weak text passwords, which include but not limit to passwords containing only vocabularies-->
+<!--                (e.g. lovely, purple),-->
+<!--                numbers(e.g. 123456), and easy patterns (e.g. 1q2w3e4r).-->
+<!--                Creating a complicated password (e.g. 3class8 passwords) is both time- and mental-consuming and the outcome password is hard to remember.-->
+<!--                An observation from a not very common habit but insightful (also fun): some users set passwords like "asdfghjkl;'" (the middle line on physical QWERTY keyboard) to mimic-->
+<!--                the "sliding unlock" on physical keyboard on their PCs or laptops.-->
+<!--                Gesture typing is gradually adopted by users and it shows faster input speed in general cases. Moreover, people behave-->
+<!--                variously performing word-gestures.-->
+<!--                An unfortunate thing happened to myself: my bank App was broken which couldn't link my fingerprint reader,-->
+<!--                resulting in that I have to enter my long un-patterned password with symbols manually, EVERY TIME, on my SMALL virtual keyboard-->
+<!--                of my phone.-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -55,10 +55,26 @@
                 <img class="project-image-full-col" src="image/sysarch.png" alt="System Implementation Figure">
             </div>
             <p>
-                We develop a server as a hub by WebSocket, forwarding video stream from the HMD and instructions from the helper.
+                We develop a server as a hub by WebSocket, forwarding video stream from the HoloLens and instructions from the helper.
                 A helper monitors the view from the helped and gives instructions on a website.
                 The helped receives the forwarded instruction packages which will be re-rendered by Unity.
                 Therefore, our system is extendable to provide many-to-many services if applicable.
+            </p>
+        </div>
+
+        <div class="project-section-wrapper">
+            <h3>Disscussion and Future Work</h3>
+            <p>
+                One essential existing problem is the mismaching of point-of-view between human eyes and device camera.
+                HoloLens is a see-through mixed reality device which humans can observed real world by their eyes.
+                However, the scence that the helper receives is not exactly what human eyes see.
+                Cameras are placed higher than the position of human eyes. 
+                This leads to the problem that when placing markers, rendered markers on HoloLens have offsets from human-eys's scene.
+                The problem can be addressed by algorithm compensating offsets.
+            </p>
+            <p>
+                Another future work is placing markers that attach to real-world objects, like sticking labels on them.
+                This will benefit human-effort to track the object and also elaborate the advantage of computing system to recognize and track various objects.
             </p>
         </div>
 

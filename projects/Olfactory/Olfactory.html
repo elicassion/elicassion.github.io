@@ -28,7 +28,20 @@
                 HardWare Crafting
             </h3>
             <p>
-
+                First, we need hardware to catch those aromas.
+                I designed the hardware box with collaborators major in industrial design.
+                The box has three layers: The first layer on the top is the space for attaching the sensor array.
+                The second layer in the middle, which occupies the majority of the room, serves as a diffusion space
+                    for sample perfumes exposing to the sensor array.
+                The sample is placed on a metal plate at the bottom of this layer.
+                There is a heating element attached to the other side of the plate which is intended to
+                    speed up the diffusion.
+                The last layer is a space for wires going out.
+                There are also two windows with fans for control the air flow in the box.
+                When collecting data, windows and fans are closed.
+                When it ends, partitions are removed to open the window and fans are activated to exhaust the perfume.
+                The material of the box is carefully selected which has extremely low absorption ability
+                    preventing aroma residues that affect continuous usage.
             </p>
             <div class="project-image-wrapper">
                 <img class="project-image-half-col float" src="image/field1.jpg" alt="">
@@ -43,7 +56,12 @@
                 Data Collection
             </h3>
             <p>
-
+                The sensor array and the heating element are connected to an Arduino module,
+                    and then the Arduino module communicates with a PC trough USB serial port.
+                A pre-designed heating logic is programmed in the Arduino module.
+                I designed main control program to drive the experiment procedures and collect data from the sensor array.
+                The program combines Python and C++.
+                I also designed a real-time visualization to see the data we get.
             </p>
             <div class="project-image-wrapper">
                 <img class="project-image-half-col float" src="image/mybox.jpg" alt="">
@@ -55,6 +73,15 @@
             <h3>
                 Analysis
             </h3>
+
+            <p>
+                We ran experiments collecting data from all kinds of available perfumes.
+                Also, we send these samples to Department of Chemistry to get their mass spectrometry
+                    analysis result to figure out which kinds of chemical compounds are in their.
+                Combine with the data from both sources, I use algorithm to analyze the similarity of perfumes,
+                    resulting in a similarity matrix of perfumes.
+                The darker means more similar.
+            </p>
 
 <!--            <ul class="project-ordered-list">-->
 <!--                <li>-->

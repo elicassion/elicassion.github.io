@@ -1,0 +1,66 @@
+$margin-section: 60px;
+$padding-section: 10px;
+
+$font-size-title: 40px;
+$font-size-subtitle: 22px;
+$font-size-section-title: 28px;
+$font-size-text: 20px;
+
+$line-height: 40px;
+$letter-spacing: 0.5px;
+
+.main-wrapper {
+  font-size: $font-size-text;
+  font-weight: lighter;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  padding: 0 13%;
+}
+.main-wrapper p{
+  clear: both;
+}
+.clearfloat {
+  clear: both
+}
+
+.container-fluid{
+
+}
+.content-wrapper{
+  margin: 0 $margin-section 0 0;
+}
+.title-wrapper{
+  margin: 0 0 $margin-section 0;
+  padding: $padding-section 0 0 0;
+  overflow: auto;
+  clear: both;
+}
+
+.title-wrapper hr{
+  margin: 5px 0;
+}
+
+.main-wrapper h1{
+  font-size: $font-size-title;
+  font-weight: bold;
+}
+
+.main-wrapper h2{
+  font-size: $font-size-subtitle;
+  font-weight: normal;
+}
+
+.main-wrapper h3{
+  font-size: $font-size-section-title;
+  font-weight: bold;
+}
+
+
+.section-wrapper{
+  margin: 0 0 $margin-section 0;
+  padding: $padding-section 0 0 0;
+  //overflow: auto;
+}
+img.cooking{
+  width: 100%;
+}

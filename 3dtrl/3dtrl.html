@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,400,700">
+    <link rel="stylesheet" href="../latex.css">
+    <title>3DTRL - Learning Viewpoint-Agnostic Visual Representations by Recovering Tokens in 3D Space</title>
+</head>
+<body>
+    <h1>Learning Viewpoint-Agnostic Visual Representations by Recovering Tokens in 3D Space</h1>
+    
+    <p class="author">
+        <a href="https://www3.cs.stonybrook.edu/~jishang" target="_blank">Jinghuan Shang</a>, <a href="https://srijandas07.github.io/" target="_blank">Srijan Das</a>, <a href="http://michaelryoo.com/" target="_blank">Michael Ryoo</a></p>
+    <p class="author">Stony Brook University</p>
+    <p style="text-align: center"><a href="https://arxiv.org/abs/2206.11895" target="_blank">[arXiv]</a><a href="https://github.com/elicassion/3DTRL" target="_blank">[Code -- Coming Soon!]</a></p>
+
+    <table class="noborder" style="width: 100%">
+            <tr class="noborder" style="width: 100%">
+                <td class="noborder mid" width="30%"></td>
+                <td class="noborder mid" width="20%"><img src="3d_patches/original/06500.png" style="width: 100%;"></td>
+                <td class="noborder mid" width="20%"><img src="3d_patches/gif/06500.gif" style="width: 100%"></td>
+                <td class="noborder mid" width="30%"></td>
+            </tr>
+    </table>
+
+    
+    
+
+    <h2> Abstract</h2>
+    <p>Humans are remarkably flexible in understanding viewpoint changes due to visual cortex supporting the perception of 3D structure. In contrast, most of the computer vision models that learn visual representation from a pool of 2D images often fail to generalize over novel camera viewpoints. Recently, the vision architectures have shifted towards convolution-free architectures, visual Transformers, which operate on tokens derived from image patches. However, these Transformers do not perform explicit operations to learn viewpoint-agnostic representation for visual understanding, as in convolutions. To this end, we propose a 3D Token Representation Layer (3DTRL) that estimates the 3D positional information of the visual tokens and leverages it for learning viewpoint-agnostic representations. The key elements of 3DTRL include a pseudo-depth estimator and a learned camera matrix to impose geometric transformations on the tokens. These enable 3DTRL to recover the 3D positional information of the tokens from 2D patches. In practice, 3DTRL is easily plugged-in into a Transformer. Our experiments demonstrate the effectiveness of 3DTRL in many vision tasks including image classification, multi-view video alignment, and action recognition. The models with 3DTRL outperform their backbone Transformers in all the tasks with minimal added computation.</p>
+
+    <img src="overview.png" alt="">
+
+    <<!-- h3>FPV-TPV Video Alignment</h3>
+    <table class="noborder" style="width: 100%">
+            <tr class="noborder" style="width: 100%">
+                <td class="noborder mid" width="25%">Third-person view</td>
+                <td class="noborder mid" width="25%">First-person view GT</td>
+                <td class="noborder mid" width="25%"><b>Ours</b></td>
+                <td class="noborder mid" width="25%">DeiT+TCN</td>
+            </tr>
+    </table>
+    <img src="3dtrl_can_mh.gif" style="width: 100%"> -->
+
+    <h2>What does 3DTRL learn?</h2>
+    <h3>Recovering Tokens in 3D</h3>
+    <table class="noborder" style="width: 100%">
+        <tr class="noborder" style="width: 100%">
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/06500.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/08300.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/16500.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/24800.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/28700.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/39200.png" style="width: 100%;"></td>
+            <!-- <td class="noborder mid" width="16.6%"><img src="3d_patches/original/39900.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/40400.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/45600.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/46700.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/47900.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/original/49000.png" style="width: 100%;"></td> -->
+        </tr>
+        <tr>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/06500.gif" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/08300.gif" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/16500.gif" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/24800.gif" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/28700.gif" style="width: 100%;"></td>
+            <td class="noborder mid" width="16.6%"><img src="3d_patches/gif/39200.gif" style="width: 100%;"></td>
+        </tr>
+
+
+    </table>
+    <!-- <img src="vis_patch_3d.png"> -->
+
+    
+    <h3>Pseudo-Depth Estimation</h3>
+    <img src="pseudo_depth_demo.gif">
+
+    <h3>Camera-pose Estimation</h3>
+    <table class="noborder" style="width: 100%">
+        <tr class="noborder" style="width: 100%">
+            <!-- <td class="noborder mid" width="30%"></td> -->
+            <td class="noborder mid" width="60%"><img src="cup_multipose_samples.png" style="width: 100%;"></td>
+            <td class="noborder mid" width="40%"><img src="cup_multipose_cams.gif" style="width: 100%"></td>
+            <!-- <td class="noborder mid" width="30%"></td> -->
+        </tr>
+    </table>
+
+    
+
+    <div></br><hr></br></div>
+
+    <h2>What downstream tasks does 3DTRL benefit?</h2>
+    <h3>Image Classification</h3>
+    Images in standard datasets are natually taken from so many viewpoints. With 3DTRL, vision models better learn to classify and is more robust to viewpoint changes.
+    <img src="tab1fig2.png">
+
+    <h3>Multi-view Video Alignment</h3>
+    <p>We can align videos from different viewpoints, even between <b>egocentric (first-person)</b> view and <b>third-person</b> views.
+    <table class="noborder" style="width: 100%">
+            <tr class="noborder" style="width: 100%">
+                <td class="noborder mid" width="25%">Third-person view</td>
+                <td class="noborder mid" width="25%">First-person view GT</td>
+                <td class="noborder mid" width="25%"><b>Ours</b></td>
+                <td class="noborder mid" width="25%">DeiT+TCN</td>
+            </tr>
+    </table>
+    <img src="3dtrl_can_mh.gif" style="width: 100%">
+    </br>
+    <img src="3dtrl_pick.gif" style="width: 100%">
+    <!-- <img src="video_alignment_envs.png"> -->
+    </p>
+
+    <p>Our full experimental results of video alignment, across five datasets.
+    <img src="alignment_tables.png"></p>
+
+    <h3>Action Recognition in Cross-View Videos</h3>
+    <img src="tab7.png">
+
+    <!-- <h3>Citation</h3> -->
+
+</body>
+</html>

@@ -25,7 +25,7 @@
         This post will be maintained to catch some state-of-the-art diffusion models. I'd appreciate any suggestions and bug reports: jishang [at] cs &dot& stony brook %dot% edu.
     </p>
     
-    <h2>Diffusion Process</h2>
+    <h2 id="#diffusion-process">Diffusion Process</h2>
     <h4>Forward process - adding noise:</h4>
     Suppose we have a set of data \(x_0\) and we will corrupt them by gradually adding noise step-by-step, which will completely become noise \(x_T\) with sufficient number of steps. This is the forward diffusion process.
     <p></p>
@@ -51,7 +51,7 @@
     Here \(\theta\) means we will use a model (some neural networks) to estimate such probability distribution, since this distribution is unknown.
     </p>
 
-    <h2>Objective - Minimizing the Negative Log-likelihood</h2>
+    <h2 id="#objective-function">Objective - Minimizing the Negative Log-likelihood</h2>
     The goal of a diffusion model is to make the estimation \(p_\theta(x_0)\) close to the true data distribution \(q(x_0)\).
     In the language of machine learning, we will train our model \(p_\theta\) to minimize the negative log-likelihood, using a dataset (\(p_{data}\), not the true distribution):
     $$
@@ -92,7 +92,7 @@
 
     Therefore, we only need to focus on \(\mathcal{L}_{t}\) to optimize the model.
 
-    <h2>Denoising consistency - \(\mathcal{L}_t\)</h2>
+    <h2 id="#consistency-loss">Denoising consistency - \(\mathcal{L}_t\)</h2>
     <p>
     \(\mathcal{L}_t\) has two terms. We first focus on \(q\left(x_{t-1}|x_t, x_0\right)\) because we know the forward process. \(p_\theta\left( x_{t-1} | x_t \right)\) is from our model output, which will then be compared to \(q\left(x_{t-1}|x_t, x_0\right)\).
     $$ 

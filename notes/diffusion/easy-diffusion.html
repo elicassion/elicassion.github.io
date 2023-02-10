@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,400,700">
     <!-- ||Noto+Sans|Castoro"> -->
-    <link rel="stylesheet" href="latex.css">
+    <link rel="stylesheet" href="../../latex.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -23,7 +23,14 @@
     
     <h2>Diffusion Process</h2>
     Forward process - adding noise:
-    $$ q(x_t|x_{t-1}) $$
+    $$ q(x_t|x_{t-1}) \\
+        x_t := \sqrt{1-\beta_t} x_{t-1} + \sqrt{\beta_t}\epsilon_t^* , t=1\dotsT,
+    $$
+    where $\beta_t$ can be viewed as a noise strength at step $t$. Larger $\beta$, larger part of noise $epsilon$ applied.
+    Let us define two auxiliary notations
+    $$
+        \alpha_t = 1-\beta_t
+    $$
     
 
     <p class="footnotes">Last modified 2023/02. Style Credit: <a href="https://github.com/vincentdoerig/latex-css" >latex.css</a></p>

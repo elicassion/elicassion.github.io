@@ -49,9 +49,9 @@
     Here \(\theta\) means we will use a model (some neural networks) to estimate such probability distribution, since this distribution is unknown.
     </p>
 
-    <h2>Objective - Minimizing Log-likelihood</h2>
+    <h2>Objective - Minimizing the Negative Log-likelihood</h2>
     The goal of a diffusion model is to make the estimation \(p_\theta(x_0)\) close to the true data distribution \(q(x_0)\).
-    In the language of machine learning, we will train our model \(p_\theta\) to minimize the log-likelihood, using a dataset (\(p_{data}\), not the true distribution):
+    In the language of machine learning, we will train our model \(p_\theta\) to minimize the negative log-likelihood, using a dataset (\(p_{data}\), not the true distribution):
     $$
     \begin{align}
         \arg\min_\theta \mathcal{L} &= \mathbb{E}_{x_0 \sim p_{data}, x_{1:T}\sim q} [-\log p_\theta(x_0)] \\

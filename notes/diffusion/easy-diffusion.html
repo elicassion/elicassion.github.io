@@ -18,19 +18,151 @@
         <h1 class="">尚靖桓 Jinghuan Shang</h1>
     </header> -->
     <h1 class="">A Beginner Friendly Math of Diffusion Models</h1>
-    <p>Diffusion models are becoming hot. This note will present a detailed math derivation of the diffusion model, and hope you will understand it with less effort :) 
-        For the stories behind diffusion models, explanations to recent literatures, and hands-on experiences, I'd like to recommend other awesome posts listed <a href="#recommend-posts">here!</a></p>
+    <p>Diffusion models are becoming hot. This note mainly presents a detailed math derivation of the diffusion model, and hope you will understand it with less effort :) 
+        For the stories behind diffusion models, explanations to recent literatures, and hands-on experiences, I'd like to recommend other awesome posts listed <a href="#recommend-posts">here</a>!</p>
     
     <h2>Diffusion Process</h2>
-    Forward process - adding noise:
-    $$ q(x_t|x_{t-1}) \\
-        x_t := \sqrt{1-\beta_t} x_{t-1} + \sqrt{\beta_t}\epsilon_t^* , t=1\dotsT,
+    <h4>Forward process - adding noise:</h4>
+    <p></p>
+    $$ 
+    \begin{align}
+        q(x_t|x_{t-1}) , \quad t=1 \dots T,  \\
+        x_t := \sqrt{1-\beta_t} x_{t-1} + \sqrt{\beta_t}\epsilon_t^* , \\
+        {\color{red} \text{assume the final distribution} \quad q(x_T) \sim \mathcal{N}(0, \mathbf{I}) },
+    \end{align}
     $$
-    where $\beta_t$ can be viewed as a noise strength at step $t$. Larger $\beta$, larger part of noise $epsilon$ applied.
-    Let us define two auxiliary notations
+    where \(\epsilon^*_t \sim \mathcal{N}(0, \mathbf{I})\) is the random noise added, \(\beta_t\) can be viewed as the noise strength. 
+    The starting point of the forward process, \(q(x_0)\), is the true distribution of the data \(x_0\).
+    </p>
+
+    <h4>Backward (reverse) process - denoising:</h4>
+    <p>
     $$
-        \alpha_t = 1-\beta_t
+        p_\theta(x_{t-1}|x_t), \quad t=T \dots 1.
     $$
+    Here \(\theta\) means we will use the model (some network) to estimate such probability distribution, since this distribution is unknown.
+    </p>
+
+    <h2>Objective - Minimizing Log-likelihood</h2>
+    The goal of a diffusion model is to make the estimation \(p_\theta(x_0)\) close to the true data distribution \(q(x_0)\).
+    In the language of machine learning, we will train our model \(p_\theta\) to minimize the log-likelihood, using a dataset (\(p_{data}\), not the true distribution):
+    $$
+    \begin{align}
+        \arg\min_\theta \mathcal{L} &= \mathbb{E}_{x_0 \sim p_{data}, x_{1:T}\sim q} [-\log p_\theta(x_0)] \\
+        \mathcal{L} & \le \mathbb{E}_{x_0 \sim p_{data}, x_{1:T}\sim q} \left[\mathbb{E}_{x_{0:T}\sim q} [-\log \frac{p_\theta(x_{0:T})}{q(x_{1:T}|x_0)}] \right] \\
+        & = \mathbb{E} \left[ -\log \frac{p_\theta\left(x_T\right)\prod_{t=1}^T p\left(x_{t-1}|x_t\right)}{\prod_{t=1}^Tq\left(x_t|x_{t-1}\right)} \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t=1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_t|x_{t-1}\right)} \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \left( \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_t|x_{t-1}\right)} + \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)} \right) \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t\right)\frac{q\left(x_t\right)}{q\left(x_{t-1} \right)}} - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, \color{red}{x_0}\right)\frac{q\left(x_t|\color{red}{x_0}\right)}{q\left(x_{t-1} | \color{red}{x_0} \right)}} - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} \cdot\frac{q\left(x_{t-1}|x_0\right)}{q\left(x_{t}|x_0 \right)} - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \left( \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} + \sum_{t=1}^T\log \frac{q\left(x_{t-1}|x_0\right)}{q\left(x_{t}|x_0 \right)} \right) - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} - \sum_{t=1}^T\log \frac{q\left(x_{t-1}|x_0 \right)}{q\left(x_{t}|x_0 \right)} - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\log p_\theta\left( x_T \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} - \log \frac{{\color{blue}q\left(x_{1}|x_0 \right)}}{\color{orange}q\left(x_{T}|x_0 \right)} - \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)}  \right] \\
+        & = \mathbb{E} \left[ -\left( \log p_\theta\left( x_T \right) - \log {\color{orange}q\left(x_{T}|x_0\right)} \right) - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} - \left( \log {\color{blue}q\left(x_1|x_0 \right)} + \log \frac{p_\theta\left(x_0|x_1\right)}{q\left(x_1|x_0\right)} \right)  \right] \\
+        & = \mathbb{E} \left[ -\log \frac{p_\theta\left( x_T \right)}{q\left(x_T|x_0\right)} - \sum_{t>1}^T\log \frac{p_\theta\left( x_{t-1} | x_t \right)}{q\left(x_{t-1}|x_t, x_0\right)} -  \log p_\theta\left(x_0|x_1\right)  \right] \\
+        & = \mathbb{E} \left[ {\color{green}\underbrace{D_{\text KL}\left({q\left(x_T|x_0\right)}||{p_\theta\left( x_T \right)}\right)}_{\mathcal{L}_{\text{match}}} } - {\color{red} \underbrace{\sum_{t>1}^T D_{\text{KL}}\left({q\left(x_{t-1}|x_t, x_0\right)} || {p_\theta\left( x_{t-1} | x_t \right)}\right)}_{\mathcal{L}_{\text{consistency}}} } -  {\color{blue}\underbrace{\log p_\theta\left(x_0|x_1\right)}_{\mathcal{L}_{\text{reconstruction}}}}  \right] \\
+    \end{align}
+    $$
+
+    Now we deal with each term:
+    $$
+    \begin{align}
+    \color{green} \mathcal{L}_{\text{match}} &= D_{\text KL}\left({q\left(x_T|x_0\right)}||{p_\theta\left( x_T \right)}\right) \\
+    q(x_T|x_0) &\sim \mathcal{N}(0, \mathbf{I}), \quad \text{final output of the forward process} \\
+    p_\theta(x_T) &\sim \mathcal{N}(0, \mathbf{I}), \quad \text{assume the start point of the reverse process is a random noise} \\
+    {\color{green} \mathcal{L}_{\text{match}}} &= 0
+    \\
+    \\
+    \color{blue} \mathcal{L}_{\text{reconstruction}} &= \log p_\theta\left(x_0|x_1\right), \quad \text{implicitly optimized}
+    \\
+    \\
+    \color{red} \mathcal{L}_{\text{consistency}} &= \sum_{t>1}^T D_{\text{KL}}\left({q\left(x_{t-1}|x_t, x_0\right)} || {p_\theta\left( x_{t-1} | x_t \right)}\right), \quad \text{how well the model "denoises" a sample}\\
+    &:=\mathcal{L}_t
+    \end{align}
+    $$
+
+    Therefore, we only need to focus on \(\mathcal{L}_{t}\) to optimize the model.
+
+    <h2>Denoising consistency - \(\mathcal{L}_t\)</h2>
+    <p>
+    \(\mathcal{L}_t\) has two terms. We first focus on \(q\left(x_{t-1}|x_t, x_0\right)\) because we know the forward process.
+    $$
+    \begin{align}
+        q(x_{t-1}|x_t, x_0) &= \frac{q(x_t|x_{t-1}, x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} \\
+        &= \frac{q(x_t|x_{t-1}, \enclose{updiagonalstrike}{x_0})q(x_{t-1}|x_0)}{q(x_t|x_0)} \\
+        &= \frac{q(x_t|x_{t-1})q(x_{t-1}|x_0)}{q(x_t|x_0)} \\
+        &= \frac{q(x_t|x_{t-1})q(x_{t-1}|x_0)}{q(x_t|x_0)} \\
+    \end{align}
+    $$
+
+    We have already know \(q(x_t|x_{t-1}) \sim \mathcal{N}(\sqrt{\alpha_t}x_{t-1}, (1-\alpha_t)\mathbf{I})\) by definition, and now we need to derive \(q(x_{t-1}|x_0)\) and \(q(x_t|x_0)\), which are the same thing:
+    $$
+    \begin{align}
+        \alpha_t &:= 1 - \beta_t \quad \text{and} \quad \bar{\alpha}_t := \prod_{i=1}^{t}\alpha_t, \quad\text{auxiliary notations} \\
+        x_T &= \sqrt{1-\beta_T} x_{T-1} + \sqrt{\beta_T}\epsilon_T \\
+        &= \sqrt{a_T} x_{T-1} + \sqrt{1-\alpha_T} \underbrace{\epsilon_{T}}_{\mathcal{N}(0, \mathbf{I})} \quad \quad \quad \quad \\
+        &= \sqrt{a_T}\sqrt{\alpha_{T-1}}x_{T-2} + \sqrt{\alpha_T}\sqrt{1-\alpha_{T-1}}\underbrace{\epsilon^*_{T-1}}_{\mathcal{N}(0, \mathbf{I})} + \sqrt{1-\alpha_T}\epsilon_{T} \\
+        &= \sqrt{\alpha_T \alpha_{T-1}}x_{T-2} + \underbrace{( \sqrt{\alpha_T\left(1-\alpha_{T-1}\right)}\epsilon^*_{T-1} + \sqrt{1-\alpha_T}\epsilon_{T}) }_{\text{merge two Gaussian w/ reparameterization}} \\
+        &= \sqrt{\alpha_T \alpha_{T-1}}x_{T-2} + \sqrt{\alpha_T\left(1-\alpha_{T-1}\right)+1-\alpha_T}\underbrace{\epsilon_{T-1}}_{\mathcal{N}(0, \mathbf{I})} \\
+        &= \sqrt{\alpha_T \alpha_{T-1}}x_{T-2} + \sqrt{1-\alpha_T\alpha_{T-1}}\epsilon_{T-1} \\
+        &= \cdots \\
+        &= \sqrt{\alpha_T\alpha_{T-1}\dots\alpha_1}x_0 + \sqrt{1-\alpha_T\alpha_{T-1}\dots\alpha_1}\epsilon_1 \\
+        &= \sqrt{\bar{a}_T} x_0 + \sqrt{1-\bar{a}_T} \epsilon_1\\
+         
+        q(x_t|x_0) &\sim \mathcal{N}(x_t; \sqrt{a_t}x_0, (1-\bar{a}_t\mathbf{I})) \\
+    \end{align}
+    $$
+    </p>
+
+    <p>
+    Then go back to \(\frac{q(x_t|x_{t-1})q(x_{t-1}|x_0)}{q(x_t|x_0)}\):
+    $$
+    \begin{align}
+        q(x_{t-1}|x_t, x_0) &= \frac{q(x_t|x_{t-1})q(x_{t-1}|x_0)}{q(x_t|x_0)} \\
+        &= \frac{\mathcal{N}(x_t; \sqrt{\alpha_t}x_{t-1}, \left(1-\alpha_t\right)\mathbf{I}) ~ \mathcal{N}(x_{t-1};\sqrt{\bar{\alpha}_{t-1}}x_0, \left(1-\bar{\alpha}_t\right)\mathbf{I}) } {\mathcal{N}(x_t; \sqrt{\bar{\alpha_t}}x_0, (1-\bar{\alpha}_t)\mathbf{I})} \\
+        &\propto \exp \left( -\left[ \frac{(x_t-\sqrt{\alpha_t}x_{t-1})^2}{2(1-\alpha_t)} + \frac{(x_{t-1}-\sqrt{1-\alpha_{t-1}}x_0)^2}{2(1-\bar{\alpha}_{t-1})} - \frac{(x_t-\sqrt{\bar{\alpha_t}}x_0)^2}{2(1-\bar{\alpha}_t)} \right] \right) \\
+        &= \exp\left( -\frac{1}{2} \left[ \frac{{\color{red}x^2_t} + \alpha_t x^2_{t-1} - 2\sqrt{\alpha_t}x_{t-1}x_{t}}{1-\alpha_t} + \frac{x^2_{t-1}+{\color{red}\bar{\alpha}_{t-1}x^2_0}-2\sqrt{\bar{a}_{t-1}x_0x_{t-1}}}{1-\bar{\alpha}_{t-1}} - {\color{red} \frac{(x_t-\sqrt{\bar{\alpha_t}}x_0)^2}{1-\bar{\alpha}_t} }\right] \right) \\
+        &= \exp\left( -\frac{1}{2} \left[ \frac{\alpha_t x^2_{t-1} - 2\sqrt{\alpha_t}x_{t-1}x_{t}}{1-\alpha_t} + \frac{x^2_{t-1}-2\sqrt{\bar{a}_{t-1}x_0x_{t-1}}}{1-\bar{\alpha}_{t-1}} - {\color{red} C(x_t, x_0) }\right] \right) \\
+        &\propto \exp\left( -\frac{1}{2} \left[ \left(\frac{\alpha_t}{1-\alpha_t} + \frac{1}{1-\bar{\alpha}_{t-1}} \right)x^2_{t-1} + \left( \frac{-2\sqrt{\alpha_t}x_t}{1-\alpha_t} + \frac{-2\sqrt{\bar{\alpha}_{t-1}}x_0}{1-\bar{\alpha}_{t-1}} \right) x_{t-1} \right] \right) \\
+        &= \exp \left( -\frac{1}{2(1-\alpha_t)(1-\bar{\alpha}_{t-1})} \left[ \left( \alpha_t(1-\bar{\alpha}_{t-1})+1-\alpha_t \right) x^2_{t-1} -2 \left( (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}x_0 \right)x_{t-1} \right] \right) \\
+        &= \exp \left( -\frac{1}{2(1-\alpha_t)(1-\bar{\alpha}_{t-1})} \left[ \left( 1-\bar{\alpha}_{t} \right) x^2_{t-1} -2 \left( (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}x_0 \right)x_{t-1} \right] \right) \\
+        &= \exp \left( -\frac{1-\bar{\alpha}_{t}}{2(1-\alpha_t)(1-\bar{\alpha}_{t-1})} \left[ x^2_{t-1} -2 \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}x_0} {1-\bar{\alpha}_{t}} x_{t-1} \right] \right) \\
+        &\propto \mathcal{N} (x_{t-1}; \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}{\color{red}x_0}} {1-\bar{\alpha}_{t}}, \frac{(1-\alpha_t)(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha}_{t}}\mathbf{I}) \\
+        & \mu_q(x_t, x_0) := \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}{\color{red}x_0}} {1-\bar{\alpha}_{t}}
+        \end{align}
+    $$
+    Thus, \(q(x_{t-1}|x_t, x_0)\) is a Gaussian distribution. However, \(x_0\) is unknown, so we need to transform \(x_0\) to \(x_t\):
+    $$
+    \begin{align}
+        x_t &= \sqrt{\bar{a}_t} x_0 + \sqrt{1-\bar{a}_t} \epsilon_1 \\
+        x_0 &= \frac{1}{\sqrt{\bar{\alpha}_t}}\left( x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_1 \right) \\
+        \mu_q(x_t, x_0) &= \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\sqrt{\bar{\alpha}_{t-1}}{\color{red}x_0}} {1-\bar{\alpha}_{t}} \\
+        &= \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t){\color{blue}\sqrt{\bar{\alpha}_{t-1}}}\frac{1}{\color{blue}\sqrt{\bar{\alpha}_t}}(x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_1) } {1-\bar{\alpha}_{t}} \\
+        &= \frac{ (1-\bar{\alpha}_{t-1})\sqrt{\alpha_t}x_t + (1-\alpha_t)\frac{1}{\color{blue}\sqrt{\alpha_t}}(x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_1) } {1-\bar{\alpha}_{t}} \\
+        &= \frac{ (1-\bar{\alpha}_{t-1})\alpha_t x_t + (1-\alpha_t)(x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_1) } {(1-\bar{\alpha}_{t})\sqrt{\alpha_t}} \\
+        &= \frac{[\alpha_t(1-\bar{\alpha}_{t-1})+1-\alpha_t]x_t - (1-\alpha_t)\sqrt{1-\bar{\alpha}_t}\epsilon_1} {(1-\bar{\alpha}_{t})\sqrt{\alpha_t}} \\
+        &= \frac{(1-\bar{\alpha}_{t})x_t - (1-\alpha_t)\sqrt{1- \bar{\alpha}_t}\epsilon_1} {(1-\bar{\alpha}_{t})\sqrt{\alpha_t}} \\
+        &= \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1-\alpha_t}{\sqrt{1-\bar{\alpha}_t}\sqrt{\alpha_t}}\epsilon_1 \quad \quad \text{then reparameterization}\\
+        &= \mu_q(x_t, t) + \epsilon(t) \\
+    \end{align}
+    $$
+    </p>
+
+    <p>
+    Since \(q(x_{t-1}|x_t, x_0)\) is a Gaussian distribution, we can assume that \( p_\theta\left( x_{t-1} | x_t \right) \) is also a Gaussian distribution, then we can evaluate the KL-divergence between them. Instead of directly measuring the loss on the mean, we again use a reparemeterization so that we only measure the KL-divergence between \(\epsilon\):
+    $$
+    \begin{align}
+    p_\theta\left( x_{t-1} | x_t \right) &= \mathcal{N}(x_t; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))  \\
+    &= \mathcal{N}(x_t; \mu_q(x_t, t) + \epsilon_\theta(x_t, t), \Sigma_\theta(x_t, t)) \\
+    \mathcal{L}_{t} &= \sum_{t>1}^T D_{\text{KL}}\left({q\left(x_{t-1}|x_t, x_0\right)} || {p_\theta\left( x_{t-1} | x_t \right)}\right) \\
+    & \propto \mathbb{E}_{t} \left[ \frac{(1-\alpha_t)^2}{(1-\bar{\alpha}_t)\alpha_t}|| \epsilon_1 - \epsilon_\theta(x_t, t) ||^2_2  \right]
+    \end{align}
+    $$
+    In DDPM, we omit the estimation on the variances and assume that they are a constant (\(\mathbf{I}\)), then use the Mean Squared Error (MSE) as the final loss .
+    </p>
+
+
     
 
     <p class="footnotes">Last modified 2023/02. Style Credit: <a href="https://github.com/vincentdoerig/latex-css" >latex.css</a></p>

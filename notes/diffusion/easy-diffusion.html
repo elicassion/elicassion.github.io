@@ -37,7 +37,9 @@
     \end{align}
     $$
     where \(\epsilon^*_t \sim \mathcal{N}(0, \mathbf{I})\) is the random noise added, \(\beta_t\) can be viewed as the noise strength. 
-    The starting point of the forward process, \(q(x_0)\), is the true distribution of the data \(x_0\).
+    The starting point of the forward process, \(q(x_0)\), is the true distribution of the data \(x_0\). The provided transition of \(x_{t-1} \to x_t \) follows a Gaussian kernel. 
+    One can replace the kernel with other distributions, however, for now we are unlikely to get a close form solution when using those distributions. 
+    The derivation below is based on Gaussian kernel, i.e. \(x_t := \sqrt{1-\beta_t} x_{t-1} + \sqrt{\beta_t}\epsilon_t^*\).
     </p>
 
     <h4>Backward (reverse) process - denoising:</h4>

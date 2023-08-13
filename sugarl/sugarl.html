@@ -47,14 +47,15 @@
     </div>
 
     
-    <h2>Learned policies on Atari</h2><span><b>Left</b>: partial observation used; <b>Right</b>: full game</span>
+    <h2>Learned policies on Atari</h2>
     <div class="video-container" id="main-video">
         <!-- <video autoplay playinline muted loop width="160" height="160">
             <source src="videos/assault_fov.mp4" type="video/mp4">
         </video>     -->
     </div>
+    <caption><b>Left</b>: partial observation used; <b>Right</b>: full game</caption>
     
-    <h2>Learned policies on Robosuite</h2><span><b>Top</b>: used observation from the active camera view; <b>Bottom</b>: the same recording but from another static view for better visualization</span>
+    <h2>Learned policies on Robosuite</h2>
     <div class="video-container" id="rs-video">
         <h3>Door opening</h3>
         <p>We observe roughly two kinds of sensory policies can be obtained for completing the task: 
@@ -68,6 +69,7 @@
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Door_sv_success_follow.mp4"></video>
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Door_sv_success_far.mp4"></video>
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Door_sv_success_far2.mp4"></video>
+        <p><caption class="mid"><b>Top</b>: used observation from the active camera view; <b>Bottom</b>: the same recording but from another static view for better visualization</caption></p>
         <h3>Wiping the table</h3>
         <p>For wiping the table, we also observe two types of active camera motion:
             <ul>
@@ -81,10 +83,13 @@
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Wipe_sv_move_forward2.mp4"></video>
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Wipe_sv_move_forward.mp4"></video>
 
+        <p><caption class="mid"><b>Top</b>: used observation from the active camera view; <b>Bottom</b>: the same recording but from another static view for better visualization</caption></p>
+
         <h3>Failure cases</h3>
         <p>We observe that the sensory policy can seek for robot end-effector although some tasks are failed.</p>
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Door_sv_fail_find_ee.mp4"></video>
         <video autoplay muted loop playsinline style="width: 18.8%" src="rs_videos/Door_sv_fail_follow_updown.mp4"></video>
+        <p><caption class="mid"><b>Top</b>: used observation from the active camera view; <b>Bottom</b>: the same recording but from another static view for better visualization</caption></p>
 
     </div>
     

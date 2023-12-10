@@ -125,14 +125,14 @@ html {
 
 body.libertinus {
   /*font-family: 'Libertinus', Georgia, Cambria, 'Times New Roman', Times, serif;*/
-  font-family: 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
-  /*font-family: 'Lato' 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
+/*  font-family: 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
+  font-family: 'Lato', 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
 }
 
 body {
   /*font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
-  font-family: 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
-  /*font-family: 'Lato' 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
+/*  font-family: 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
+  font-family: 'Lato', 'Google Sans', 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
   line-height: 1.8;
 
   max-width: 110ch;
@@ -649,12 +649,12 @@ iframe {
 }
 
 .publication {
-  max-width:  110ch;
+  max-width:  120ch;
   /*margin: 0 0 auto 10ch;*/
 }
 
 .intro {
-  max-width: 90ch;
+  max-width: 110ch;
   margin: 0 auto;
 }
 
